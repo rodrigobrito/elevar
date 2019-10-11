@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elevar.Domain", "src\Elevar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elevar.Tests", "src\Elevar.Tests\Elevar.Tests.csproj", "{ECD77BB1-7113-4A82-96D9-7DABBD73F86B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elevar.Infrastructure.MongoDb", "src\Elevar.Infrastructure.MongoDb\Elevar.Infrastructure.MongoDb.csproj", "{8A33A0B3-16F5-467A-B91F-E8A6A444F8D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ECD77BB1-7113-4A82-96D9-7DABBD73F86B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECD77BB1-7113-4A82-96D9-7DABBD73F86B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECD77BB1-7113-4A82-96D9-7DABBD73F86B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A33A0B3-16F5-467A-B91F-E8A6A444F8D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A33A0B3-16F5-467A-B91F-E8A6A444F8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A33A0B3-16F5-467A-B91F-E8A6A444F8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A33A0B3-16F5-467A-B91F-E8A6A444F8D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

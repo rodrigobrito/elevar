@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageIconUrl>https://raw.githubusercontent.com/rodrigobrito/elevar/master/Icon.png</PackageIconUrl>
+    <PackageLicenseFile>README.md</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/rodrigobrito/elevar</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Elevar.Domain" Version="1.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Elevar\Elevar.csproj" />
+  </ItemGroup>
+
+</Project>
