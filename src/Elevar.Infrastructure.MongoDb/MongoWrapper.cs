@@ -256,12 +256,12 @@ namespace Elevar.Infrastructure.MongoDb
             return CollectionMongo<TDocument>(collectionName);
         }
 
-        public List<TDocument> FindPaging<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize, int currentPage)
+        public List<TDocument> FindPaging<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize = 100, int currentPage = 1)
         {
             return CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync().ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
-        public async Task<List<TDocument>> FindPagingAsync<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize, int currentPage)
+        public async Task<List<TDocument>> FindPagingAsync<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize = 100, int currentPage = 1)
         {
             return await CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync();
         }
