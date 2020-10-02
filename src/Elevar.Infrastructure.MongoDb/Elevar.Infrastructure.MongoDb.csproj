@@ -2,16 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageIconUrl>https://raw.githubusercontent.com/rodrigobrito/elevar/master/Icon.png</PackageIconUrl>
     <PackageLicenseFile>README.md</PackageLicenseFile>
     <RepositoryUrl>https://github.com/rodrigobrito/elevar</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0.2</Version>
+    <AssemblyVersion>1.0.0.2</AssemblyVersion>
+    <FileVersion>1.0.0.2</FileVersion>
+    <PackageProjectUrl>..\..\Icon.png</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Elevar.Domain" Version="1.0.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.9.2" />
+    <PackageReference Include="Elevar.Domain" Version="1.0.0.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -19,11 +19,11 @@ namespace Elevar.Infrastructure.MongoDb
             SetConventionPack();
         }
 
-        private void SetConventionPack()
+        private static void SetConventionPack()
         {
             var pack = new ConventionPack
             {
-                new CamelCaseElementNameConvention()
+                new CamelCaseElementNameConvention(),
             };
             ConventionRegistry.Register("camel case", pack, t => true);
         }
@@ -258,7 +258,12 @@ namespace Elevar.Infrastructure.MongoDb
 
         public List<TDocument> FindPaging<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize, int currentPage)
         {
-            return CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync().Result;
+            return CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+        public async Task<List<TDocument>> FindPagingAsync<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize, int currentPage)
+        {
+            return await CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync();
         }
     }
 }
