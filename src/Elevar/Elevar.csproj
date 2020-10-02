@@ -9,6 +9,8 @@
     <Version>1.0.0.2</Version>
     <AssemblyVersion>1.0.0.2</AssemblyVersion>
     <PackageIcon>Icon.png</PackageIcon>
+    <Company>Brito &amp; Brito Informática Ltda</Company>
+    <Authors>Rodrigo da Silva Brito</Authors>
   </PropertyGroup>
 
   <ItemGroup>

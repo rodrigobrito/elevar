@@ -6,10 +6,12 @@
     <RepositoryUrl>https://github.com/rodrigobrito/elevar</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0.2</Version>
-    <AssemblyVersion>1.0.0.2</AssemblyVersion>
-    <FileVersion>1.0.0.2</FileVersion>
+    <Version>1.0.0.3</Version>
+    <AssemblyVersion>1.0.0.3</AssemblyVersion>
+    <FileVersion>1.0.0.3</FileVersion>
     <PackageIcon>Icon.png</PackageIcon>
+    <Authors>Rodrigo da Silva Brito</Authors>
+    <Company>Brito &amp; Brito Informática Ltda</Company>
   </PropertyGroup>
 
   <ItemGroup>

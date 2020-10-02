@@ -8,6 +8,8 @@
     <RepositoryType>git</RepositoryType>
     <Version>1.0.0.2</Version>
     <PackageIcon>Icon.png</PackageIcon>
+    <Authors>Rodrigo da Silva Brito</Authors>
+    <Company>Brito &amp; Brito Informática Ltda</Company>
   </PropertyGroup>
 
   <ItemGroup>
