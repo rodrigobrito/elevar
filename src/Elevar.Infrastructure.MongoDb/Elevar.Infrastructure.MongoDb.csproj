@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Elevar.Domain" Version="1.0.0.1" />
+    <PackageReference Include="Elevar.Domain" Version="1.0.0.2" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
   </ItemGroup>
 
