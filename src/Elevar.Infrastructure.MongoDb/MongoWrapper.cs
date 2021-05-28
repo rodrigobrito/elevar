@@ -141,12 +141,12 @@ namespace Elevar.Infrastructure.MongoDb
             return await CollectionMongo<TDocument>(collectionName).DeleteOneAsync(filter);
         }
 
-        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName)
+        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, bool? unique = null)
         {
-            await CreateIndexIfNotExistsAsync(collectionName, field, indexName, null);
+            await CreateIndexIfNotExistsAsync(collectionName, field, indexName, null, unique);
         }
 
-        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, string indexName, int? ttl, params Expression<Func<TDocument, object>>[] fields)
+        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, string indexName, int? ttl, bool? unique = null, params Expression<Func<TDocument, object>>[] fields)
         {
             var collection = CollectionMongo<TDocument>(collectionName);
             if (collection != null)
@@ -163,9 +163,9 @@ namespace Elevar.Infrastructure.MongoDb
                     CreateIndexOptions indexOptions;
 
                     if (ttl.HasValue)
-                        indexOptions = new CreateIndexOptions { Name = indexName, ExpireAfter = TimeSpan.FromDays(ttl.Value) };
+                        indexOptions = new CreateIndexOptions { Name = indexName, ExpireAfter = TimeSpan.FromDays(ttl.Value), Unique = unique };
                     else
-                        indexOptions = new CreateIndexOptions { Name = indexName };
+                        indexOptions = new CreateIndexOptions { Name = indexName, Unique = unique };
 
                     var indexDefinition = Builders<TDocument>.IndexKeys.Combine(indexKeys);
                     var indexModel = new CreateIndexModel<TDocument>(indexDefinition, indexOptions);
@@ -174,7 +174,7 @@ namespace Elevar.Infrastructure.MongoDb
             }
         }
 
-        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, int? ttl)
+        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, int? ttl, bool? unique = null)
         {
             var collection = CollectionMongo<TDocument>(collectionName);
             if (collection != null)
@@ -184,9 +184,9 @@ namespace Elevar.Infrastructure.MongoDb
                     CreateIndexOptions indexOptions;
 
                     if (ttl.HasValue)
-                        indexOptions = new CreateIndexOptions { Name = indexName, ExpireAfter = TimeSpan.FromDays(ttl.Value) };
+                        indexOptions = new CreateIndexOptions { Name = indexName, ExpireAfter = TimeSpan.FromDays(ttl.Value), Unique = unique };
                     else
-                        indexOptions = new CreateIndexOptions { Name = indexName };
+                        indexOptions = new CreateIndexOptions { Name = indexName, Unique = unique };
 
                     var indexModel = new CreateIndexModel<TDocument>(Builders<TDocument>.IndexKeys.Ascending(field), indexOptions);
                     await collection.Indexes.CreateOneAsync(indexModel);

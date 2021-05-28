@@ -37,8 +37,8 @@ namespace Elevar.Infrastructure.MongoDb
         Task<DeleteResult> DeleteOneAsync<TDocument>(string collectionName, FilterDefinition<TDocument> filter);
 
         Task<bool> IndexExistsAsync<T>(IMongoCollection<T> collection, params string[] indexesVerify);
-        Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, int? ttl);
-        Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, string indexName, int? ttl, params Expression<Func<TDocument, object>>[] fields);
-        Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName);
+        Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, int? ttl, bool? unique = null);
+        Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, string indexName, int? ttl, bool? unique = null, params Expression<Func<TDocument, object>>[] fields);
+        Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, bool? unique = null);
     }
 }
