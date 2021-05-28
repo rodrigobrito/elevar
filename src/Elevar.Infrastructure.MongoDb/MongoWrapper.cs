@@ -47,7 +47,7 @@ namespace Elevar.Infrastructure.MongoDb
 
         public async Task<ReplaceOneResult> SaveAsync<TDocument>(string collectionName, TDocument document, Expression<Func<TDocument, bool>> filter)
         {
-            return await CollectionMongo<TDocument>(collectionName).ReplaceOneAsync(filter, document, new UpdateOptions { IsUpsert = true });
+            return await CollectionMongo<TDocument>(collectionName).ReplaceOneAsync(filter, document, new ReplaceOptions { IsUpsert = true });
         }
 
 
