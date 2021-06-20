@@ -11,6 +11,7 @@ namespace Elevar.Utils
             if (string.IsNullOrWhiteSpace(text)) return string.Empty;
             return FormatCharacters(RemoveDiacritics(text.Trim())).Replace("--", "-").ToLower();
         }
+
         public static string RemoveDiacritics(this string text)
         {
             var normalizedString = text.Normalize(NormalizationForm.FormD);
@@ -25,6 +26,7 @@ namespace Elevar.Utils
             }
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
+
         public static string FormatCharacters(this string str)
         {
             var sb = new StringBuilder();
@@ -46,9 +48,16 @@ namespace Elevar.Utils
             }
             return sb.ToString();
         }
+
         public static Uri ToUri(this string text)
         {
             return string.IsNullOrWhiteSpace(text) ? null : new Uri(text);
+        }
+
+        public static Guid? ToGuid(this string text)
+        {
+            if (Guid.TryParse(text, out var guid)) return guid;
+            return null;
         }
     }
 }
