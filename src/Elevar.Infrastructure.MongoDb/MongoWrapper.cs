@@ -141,6 +141,11 @@ namespace Elevar.Infrastructure.MongoDb
             return await CollectionMongo<TDocument>(collectionName).DeleteOneAsync(filter);
         }
 
+        public async Task<DeleteResult> DeleteOneAsync<TDocument>(string collectionName, Expression<Func<TDocument, bool>> filter)
+        {
+            return await CollectionMongo<TDocument>(collectionName).DeleteOneAsync(filter);
+        }        
+
         public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, bool? unique = null)
         {
             await CreateIndexIfNotExistsAsync(collectionName, field, indexName, null, unique);

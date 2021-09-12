@@ -11,5 +11,21 @@ namespace Elevar.Utils
 
             return o;
         }
+
+        public static Guid ThrowIfNull<T>(this Guid o, string paramName)
+        {
+            if (o == Guid.Empty)
+                throw new ArgumentNullException(paramName);
+
+            return o;
+        }
+
+        public static string ThrowIfNullOrEmpty<T>(this string str, string paramName)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+                throw new ArgumentNullException(paramName);
+
+            return str;
+        }
     }
 }
