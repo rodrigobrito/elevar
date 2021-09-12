@@ -12,7 +12,7 @@ namespace Elevar.Utils
             return o;
         }
 
-        public static Guid ThrowIfNull(this Guid o, string paramName)
+        public static Guid ThrowIfEmpty(this Guid o, string paramName)
         {
             if (o == Guid.Empty)
                 throw new ArgumentNullException(paramName);
