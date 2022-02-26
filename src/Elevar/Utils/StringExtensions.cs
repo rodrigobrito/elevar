@@ -49,6 +49,11 @@ namespace Elevar.Utils
             return sb.ToString();
         }
 
+        public static string EscapeSingleQuotes(this string str)
+        {
+            return str.Replace("'", "\'");
+        }
+
         public static Uri ToUri(this string text)
         {
             return string.IsNullOrWhiteSpace(text) ? null : new Uri(text);
