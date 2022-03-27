@@ -7,16 +7,16 @@
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.0.0.11</Version>
-    <AssemblyVersion>1.0.0.11</AssemblyVersion>
-    <FileVersion>1.0.0.11</FileVersion>
+    <AssemblyVersion>1.0.0.12</AssemblyVersion>
+    <FileVersion>1.0.0.12</FileVersion>
     <PackageIcon>Icon.png</PackageIcon>
     <Authors>Rodrigo da Silva Brito</Authors>
     <Company>Brito &amp; Brito Informática Ltda</Company>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Elevar.Domain" Version="1.0.0.9" />
-    <PackageReference Include="MongoDB.Driver" Version="2.13.1" />
+    <PackageReference Include="Elevar.Domain" Version="1.0.0.10" />
+    <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
   </ItemGroup>
 
   <ItemGroup>
