@@ -6,7 +6,7 @@
     <RepositoryUrl>https://github.com/rodrigobrito/elevar</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0.11</Version>
+    <Version>1.0.0.12</Version>
     <AssemblyVersion>1.0.0.12</AssemblyVersion>
     <FileVersion>1.0.0.12</FileVersion>
     <PackageIcon>Icon.png</PackageIcon>
