@@ -11,5 +11,10 @@ namespace Elevar.Collections
         }
         public int TotalRecords { get; set; }
         public int RecordsReturned { get { return Count; } }
+        public int GetTotalPages(int pageSize) 
+        {
+            if (pageSize == 0) return 0;
+            return TotalRecords > pageSize ? (TotalRecords / pageSize) + ((TotalRecords % pageSize) > 0 ? 1 : 0) : 1;
+        }
     }
 }
