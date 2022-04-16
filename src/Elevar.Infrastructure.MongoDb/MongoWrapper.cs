@@ -199,6 +199,26 @@ namespace Elevar.Infrastructure.MongoDb
             }
         }
 
+        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, string field, string indexName, int? ttl, bool? unique = null)
+        {
+            var collection = CollectionMongo<TDocument>(collectionName);
+            if (collection != null)
+            {
+                if (!await IndexExistsAsync(collection, indexName))
+                {
+                    CreateIndexOptions indexOptions;
+
+                    if (ttl.HasValue)
+                        indexOptions = new CreateIndexOptions { Name = indexName, ExpireAfter = TimeSpan.FromDays(ttl.Value), Unique = unique };
+                    else
+                        indexOptions = new CreateIndexOptions { Name = indexName, Unique = unique };
+
+                    var indexModel = new CreateIndexModel<TDocument>(Builders<TDocument>.IndexKeys.Ascending(field), indexOptions);
+                    await collection.Indexes.CreateOneAsync(indexModel);
+                }
+            }
+        }
+
         public async Task<bool> IndexExistsAsync<T>(IMongoCollection<T> collection, params string[] indexesVerify)
         {
             using (var cursor = await collection.Indexes.ListAsync())

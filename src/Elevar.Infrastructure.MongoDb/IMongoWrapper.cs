@@ -39,6 +39,7 @@ namespace Elevar.Infrastructure.MongoDb
 
         Task<bool> IndexExistsAsync<T>(IMongoCollection<T> collection, params string[] indexesVerify);
         Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, int? ttl, bool? unique = null);
+        Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, string field, string indexName, int? ttl, bool? unique = null);
         Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, string indexName, int? ttl, bool? unique = null, params Expression<Func<TDocument, object>>[] fields);
         Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, bool? unique = null);
     }
