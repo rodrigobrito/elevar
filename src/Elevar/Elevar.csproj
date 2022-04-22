@@ -6,12 +6,12 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/rodrigobrito/elevar</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>1.0.0.12</Version>
-    <AssemblyVersion>1.0.0.11</AssemblyVersion>
+    <Version>1.0.0.13</Version>
+    <AssemblyVersion>1.0.0.13</AssemblyVersion>
     <PackageIcon>Icon.png</PackageIcon>
     <Company>Brito &amp; Brito Informática Ltda</Company>
     <Authors>Rodrigo da Silva Brito</Authors>
-    <FileVersion>1.0.0.11</FileVersion>
+    <FileVersion>1.0.0.13</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
