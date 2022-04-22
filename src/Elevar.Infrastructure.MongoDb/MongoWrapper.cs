@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace Elevar.Infrastructure.MongoDb
 {
-    public class MongoWrapper: IMongoWrapper
+    public class MongoWrapper : IMongoWrapper
     {
         private readonly IMongoDatabase _mongoClient;
 
@@ -144,14 +144,14 @@ namespace Elevar.Infrastructure.MongoDb
         public async Task<DeleteResult> DeleteOneAsync<TDocument>(string collectionName, Expression<Func<TDocument, bool>> filter)
         {
             return await CollectionMongo<TDocument>(collectionName).DeleteOneAsync(filter);
-        }        
-
-        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, bool? unique = null)
-        {
-            await CreateIndexIfNotExistsAsync(collectionName, field, indexName, null, unique);
         }
 
-        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, string indexName, int? ttl, bool? unique = null, params Expression<Func<TDocument, object>>[] fields)
+        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, bool? unique = null, IndexType indexType = IndexType.Ascending)
+        {
+            await CreateIndexIfNotExistsAsync(collectionName, field, indexName, null, unique, indexType);
+        }
+
+        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, string indexName, int? ttl = null, bool? unique = null, params Expression<Func<TDocument, object>>[] fields)
         {
             var collection = CollectionMongo<TDocument>(collectionName);
             if (collection != null)
@@ -179,7 +179,7 @@ namespace Elevar.Infrastructure.MongoDb
             }
         }
 
-        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, int? ttl, bool? unique = null)
+        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, Expression<Func<TDocument, object>> field, string indexName, int? ttl = null, bool? unique = null, IndexType indexType = IndexType.Ascending)
         {
             var collection = CollectionMongo<TDocument>(collectionName);
             if (collection != null)
@@ -193,13 +193,80 @@ namespace Elevar.Infrastructure.MongoDb
                     else
                         indexOptions = new CreateIndexOptions { Name = indexName, Unique = unique };
 
-                    var indexModel = new CreateIndexModel<TDocument>(Builders<TDocument>.IndexKeys.Ascending(field), indexOptions);
+                    var indexDefinition = CreateIndexDefinition(indexType, field);
+                    var indexModel = new CreateIndexModel<TDocument>(indexDefinition, indexOptions);
                     await collection.Indexes.CreateOneAsync(indexModel);
                 }
             }
         }
 
-        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, string field, string indexName, int? ttl, bool? unique = null)
+        private IndexKeysDefinition<TDocument>CreateIndexDefinition<TDocument>(IndexType indexType, Expression<Func<TDocument, object>> field)
+        {
+            IndexKeysDefinition<TDocument> indexDefinition;
+            switch (indexType)
+            {
+                case IndexType.Ascending:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Ascending(field);
+                    break;
+                case IndexType.Descending:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Descending(field);
+                    break;
+                case IndexType.Text:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Text(field);
+                    break;
+                case IndexType.Hashed:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Hashed(field);
+                    break;
+                case IndexType.Geo2D:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Geo2D(field);
+                    break;
+                case IndexType.Geo2DSphere:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Geo2DSphere(field);
+                    break;
+                case IndexType.Wildcard:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Wildcard(field);
+                    break;
+                default:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Ascending(field);
+                    break;
+            }
+            return indexDefinition;
+        }
+
+        private IndexKeysDefinition<TDocument> CreateIndexDefinition<TDocument>(IndexType indexType, string field)
+        {
+            IndexKeysDefinition<TDocument> indexDefinition;
+            switch (indexType)
+            {
+                case IndexType.Ascending:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Ascending(field);
+                    break;
+                case IndexType.Descending:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Descending(field);
+                    break;
+                case IndexType.Text:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Text(field);
+                    break;
+                case IndexType.Hashed:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Hashed(field);
+                    break;
+                case IndexType.Geo2D:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Geo2D(field);
+                    break;
+                case IndexType.Geo2DSphere:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Geo2DSphere(field);
+                    break;
+                case IndexType.Wildcard:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Wildcard(field);
+                    break;
+                default:
+                    indexDefinition = Builders<TDocument>.IndexKeys.Ascending(field);
+                    break;
+            }
+            return indexDefinition;
+        }
+
+        public async Task CreateIndexIfNotExistsAsync<TDocument>(string collectionName, string field, string indexName, int? ttl = null, bool? unique = null, IndexType indexType = IndexType.Ascending)
         {
             var collection = CollectionMongo<TDocument>(collectionName);
             if (collection != null)
@@ -213,7 +280,8 @@ namespace Elevar.Infrastructure.MongoDb
                     else
                         indexOptions = new CreateIndexOptions { Name = indexName, Unique = unique };
 
-                    var indexModel = new CreateIndexModel<TDocument>(Builders<TDocument>.IndexKeys.Ascending(field), indexOptions);
+                    var indexDefinition = CreateIndexDefinition<TDocument>(indexType, field);
+                    var indexModel = new CreateIndexModel<TDocument>(indexDefinition, indexOptions);
                     await collection.Indexes.CreateOneAsync(indexModel);
                 }
             }
