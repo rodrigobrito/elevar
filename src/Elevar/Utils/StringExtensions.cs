@@ -64,5 +64,38 @@ namespace Elevar.Utils
             if (Guid.TryParse(text, out var guid)) return guid;
             return null;
         }
+
+        /// <summary>
+        /// Converts a <see cref="string"/> to lower camel case.
+        /// </summary>
+        /// <param name="name">The name to be converted with lower camel case.</param>
+        /// <returns>The converted name.</returns>
+        public static string ToLowerCamelCase(this string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return name;
+            }
+
+            if (!char.IsUpper(name[0]))
+            {
+                return name;
+            }
+
+            var stringBuilder = new StringBuilder();
+            for (int index = 0; index < name.Length; index++)
+            {
+                if (index != 0 && index + 1 < name.Length && !Char.IsUpper(name[index + 1]))
+                {
+                    stringBuilder.Append(name.Substring(index));
+                    break;
+                }
+                else
+                {
+                    stringBuilder.Append(Char.ToLower(name[index], CultureInfo.InvariantCulture));
+                }
+            }
+            return stringBuilder.ToString();
+        }
     }
 }
