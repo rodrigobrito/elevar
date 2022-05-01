@@ -9,9 +9,9 @@ namespace Elevar.Collections
         {
             TotalRecords = totalRecords;
         }
-        public int TotalRecords { get; set; }
-        public int RecordsReturned { get { return Count; } }
-        public int GetTotalPages(int pageSize) 
+        public long TotalRecords { get; set; }
+        public long RecordsReturned { get { return Count; } }
+        public long GetTotalPages(int pageSize) 
         {
             if (pageSize == 0) return 0;
             if (TotalRecords == 0) return 0;
