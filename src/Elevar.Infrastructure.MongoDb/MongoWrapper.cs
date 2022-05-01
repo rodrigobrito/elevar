@@ -349,14 +349,23 @@ namespace Elevar.Infrastructure.MongoDb
             return CollectionMongo<TDocument>(collectionName);
         }
 
-        public List<TDocument> FindPaging<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize = 100, int currentPage = 1)
+        public List<TDocument> FindPaging<TDocument>(string collectionName, FilterDefinition<TDocument> filter, out long totalRecords, int pageSize = 100, int currentPage = 1)
         {
-            return CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var documents = CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            totalRecords = CollectionMongo<TDocument>(collectionName).CountDocuments(filter);
+            return documents;
         }
 
-        public async Task<List<TDocument>> FindPagingAsync<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize = 100, int currentPage = 1)
+        public async Task<(List<TDocument>, long)> FindPagingAsync<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize = 100, int currentPage = 1)
         {
-            return await CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync();
+            var documents = await CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync();
+            var totalRecords = await CollectionMongo<TDocument>(collectionName).CountDocumentsAsync(filter);
+            return (documents, totalRecords);
+        }
+
+        public List<TDocument> FindPaging<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize = 100, int currentPage = 1)
+        {
+            throw new NotImplementedException();
         }
     }
 }
