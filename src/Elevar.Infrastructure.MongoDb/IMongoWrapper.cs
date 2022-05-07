@@ -18,9 +18,14 @@ namespace Elevar.Infrastructure.MongoDb
         TDocument FindOne<TDocument>(string collectionName, FilterDefinition<TDocument> filter);
         Task<TDocument> FindOneAsync<TDocument>(string collectionName, Expression<Func<TDocument, bool>> filter);
         Task<TDocument> FindOneAsync<TDocument>(string collectionName, FilterDefinition<TDocument> filter);
-        List<TDocument> FindPaging<TDocument>(string collectionName, FilterDefinition<TDocument> filter, out long totalRecords, int pageSize = 100, int currentPage = 1);
+        (List<TDocument>, long) FindPaging<TDocument>(string collectionName, FilterDefinition<TDocument> filter, out long totalRecords, int pageSize = 100, int currentPage = 1);
 
-        Task<(List<TDocument>, long)> FindPagingAsync<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize = 100, int currentPage = 1);
+        Task<(List<TDocument>, long)> FindPagingAsync<TDocument>(string collectionName,
+                                                         FilterDefinition<TDocument> filter,
+                                                         int pageSize = 100,
+                                                         int currentPage = 1,
+                                                         Expression<Func<TDocument, object>> field = null,
+                                                         bool descending = false);
         IFindFluent<TDocument, TDocument> FindFluent<TDocument>(string collectionName, Expression<Func<TDocument, bool>> filter);
         Task<TDocument> FindOneAndUpdateAsync<TDocument>(string collectionName, Expression<Func<TDocument, bool>> filter, UpdateDefinition<TDocument> update, FindOneAndUpdateOptions<TDocument> options = null);
 

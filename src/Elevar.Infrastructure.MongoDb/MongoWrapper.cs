@@ -200,7 +200,7 @@ namespace Elevar.Infrastructure.MongoDb
             }
         }
 
-        private IndexKeysDefinition<TDocument>CreateIndexDefinition<TDocument>(IndexType indexType, Expression<Func<TDocument, object>> field)
+        private IndexKeysDefinition<TDocument> CreateIndexDefinition<TDocument>(IndexType indexType, Expression<Func<TDocument, object>> field)
         {
             IndexKeysDefinition<TDocument> indexDefinition;
             switch (indexType)
@@ -349,23 +349,43 @@ namespace Elevar.Infrastructure.MongoDb
             return CollectionMongo<TDocument>(collectionName);
         }
 
-        public List<TDocument> FindPaging<TDocument>(string collectionName, FilterDefinition<TDocument> filter, out long totalRecords, int pageSize = 100, int currentPage = 1)
+        public (List<TDocument>, long) FindPaging<TDocument>(string collectionName, FilterDefinition<TDocument> filter, out long totalRecords, int pageSize = 100, int currentPage = 1)
         {
             var documents = CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync().ConfigureAwait(false).GetAwaiter().GetResult();
             totalRecords = CollectionMongo<TDocument>(collectionName).CountDocuments(filter);
-            return documents;
-        }
-
-        public async Task<(List<TDocument>, long)> FindPagingAsync<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize = 100, int currentPage = 1)
-        {
-            var documents = await CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync();
-            var totalRecords = await CollectionMongo<TDocument>(collectionName).CountDocumentsAsync(filter);
             return (documents, totalRecords);
         }
 
-        public List<TDocument> FindPaging<TDocument>(string collectionName, FilterDefinition<TDocument> filter, int pageSize = 100, int currentPage = 1)
+        public async Task<(List<TDocument>, long)> FindPagingAsync<TDocument>(string collectionName,
+                                                         FilterDefinition<TDocument> filter,
+                                                         int pageSize = 100,
+                                                         int currentPage = 1,
+                                                         Expression<Func<TDocument, object>> field = null,
+                                                         bool descending = false)
         {
-            throw new NotImplementedException();
+            List<TDocument> documents;
+            if (field == null)
+            {
+                documents = await CollectionMongo<TDocument>(collectionName).Find(filter).Skip((currentPage - 1) * pageSize).Limit(pageSize).ToListAsync();
+            }
+            else
+            {
+                documents = descending ?
+                   await CollectionMongo<TDocument>(collectionName)
+                                        .Find(filter)
+                                        .SortByDescending(field)
+                                        .Skip((currentPage - 1) * pageSize)
+                                        .Limit(pageSize)
+                                        .ToListAsync() :
+                   await CollectionMongo<TDocument>(collectionName)
+                                        .Find(filter)
+                                        .SortBy(field)
+                                        .Skip((currentPage - 1) * pageSize)
+                                        .Limit(pageSize)
+                                        .ToListAsync();
+            }
+            var totalRecords = await CollectionMongo<TDocument>(collectionName).CountDocumentsAsync(filter);
+            return (documents, totalRecords);
         }
     }
 }
