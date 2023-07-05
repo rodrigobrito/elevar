@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="Elevar.Domain" Version="1.0.0.10" />
-    <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.19.0" />
   </ItemGroup>
 
   <ItemGroup>
