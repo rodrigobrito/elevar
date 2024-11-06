@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿#pragma warning disable SYSLIB0011
+
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Elevar.Tests.Domain.Specs.Utils
