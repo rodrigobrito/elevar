@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/rodrigobrito/elevar</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Version>1.0.0.15</Version>
+    <AssemblyVersion>1.0.0.15</AssemblyVersion>
+    <PackageIcon>Icon.png</PackageIcon>
+    <Company>Brito &amp; Brito Informática Ltda</Company>
+    <Authors>Rodrigo da Silva Brito</Authors>
+    <FileVersion>1.0.0.15</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
